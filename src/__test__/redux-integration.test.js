@@ -1,7 +1,8 @@
 import { storeFactory } from "./storeFactory";
 import { actionTypes, setErr, setTableErr } from "../actions";
+import { act } from "@testing-library/react";
 
-describe("useReducer dispatcher", () => {
+describe("user reducer dispatcher", () => {
   let initialState = {
     userReducer: { error: "", tableError: false, userFormErr: "" }
   };
@@ -14,6 +15,30 @@ describe("useReducer dispatcher", () => {
       lastName: "Ball",
       status: "active"
     };
+
+    let allUsers = [
+      {
+        id: 1,
+        role: "auth",
+        firstName: "Bradley",
+        lastName: "Ball",
+        status: "active"
+      },
+      {
+        id: 2,
+        role: "auth",
+        firstName: "Brady",
+        lastName: "Hall",
+        status: "active"
+      },
+      {
+        id: 3,
+        role: "auth",
+        firstName: "Katie",
+        lastName: "Mall",
+        status: "active"
+      }
+    ];
 
     beforeEach(() => {
       store = storeFactory(initialState);
@@ -50,54 +75,18 @@ describe("useReducer dispatcher", () => {
       };
       expect(newState).toEqual(expectedState);
     });
-    //     test("updates state correctly for successful guess", () => {
-    //       store.dispatch(guessWord(secretWord));
-    //       const newState = store.getState();
-    //       const expectedState = {
-    //         secretWord,
-    //         success: true,
-    //         guessedWords: [
-    //           {
-    //             guessedWord: secretWord,
-    //             letterMatchCount: 5
-    //           }
-    //         ]
-    //       };
-    //       expect(newState).toEqual(expectedState);
-    //     });
-    //   });
-    //   describe("some guessed words", () => {
-    //     const guessedWords = [{ guessedWord: "agile", letterMatchCount: 1 }];
-    //     const initialState = { guessedWords, secretWord };
-    //     let store;
-    //     beforeEach(() => {
-    //       store = storeFactory(initialState);
-    //     });
-    //     test("updates state correctly for unsuccessful guess", () => {
-    //       store.dispatch(guessWord(unsuccessfulGuess));
-    //       const newState = store.getState();
-    //       const expectedState = {
-    //         secretWord,
-    //         success: false,
-    //         guessedWords: [
-    //           ...guessedWords,
-    //           { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }
-    //         ]
-    //       };
-    //       expect(newState).toEqual(expectedState);
-    //     });
-    //     test("updates state correctly for successful guess", () => {
-    //       store.dispatch(guessWord(secretWord));
-    //       const newState = store.getState();
-    //       const expectedState = {
-    //         secretWord,
-    //         success: true,
-    //         guessedWords: [
-    //           ...guessedWords,
-    //           { guessedWord: secretWord, letterMatchCount: 5 }
-    //         ]
-    //       };
-    //       expect(newState).toEqual(expectedState);
-    //     });
+
+    test("set all users should set the allUsers state array", () => {
+      store.dispatch({ type: actionTypes.SET_ALL_USERS, payload: allUsers });
+
+      const newState = store.getState();
+      const expectedState = {
+        userReducer: {
+          ...initialState.userReducer,
+          allUsers: allUsers
+        }
+      };
+      expect(newState).toEqual(expectedState);
+    });
   });
 });
