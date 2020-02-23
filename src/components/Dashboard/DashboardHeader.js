@@ -12,7 +12,12 @@ function DashboardHeader({ user }) {
   return (
     <>
       {user && (
-        <Segment secondary inverted style={{ background: "#245CA6" }}>
+        <Segment
+          secondary
+          inverted
+          style={{ background: "#245CA6" }}
+          data-testid="dashboard-header"
+        >
           <Label
             size="large"
             ribbon

@@ -1,6 +1,6 @@
 import React from "react";
 import DashboardHeader from "./DashboardHeader";
-import AccountPermissions from "./DashboardTable";
+import DashboardTable from "./DashboardTable";
 import { Container } from "semantic-ui-react";
 
 /**
@@ -9,9 +9,9 @@ import { Container } from "semantic-ui-react";
  */
 const Dashboard = () => {
   return (
-    <Container style={{ marginTop: "50px" }}>
+    <Container style={{ marginTop: "50px" }} data-testid="dashboard">
       <DashboardHeader />
-      <AccountPermissions />
+      <DashboardTable />
     </Container>
   );
 };

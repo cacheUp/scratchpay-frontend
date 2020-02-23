@@ -102,10 +102,12 @@ function Login(props) {
               name="email"
               onChange={handleChange}
               value={user.email}
+              data-testid="email-input"
             />
             <Form.Input
               fluid
               icon="lock"
+              data-testid="password-input"
               iconPosition="left"
               type="password"
               label="Password"
@@ -116,6 +118,7 @@ function Login(props) {
             />
             <Button
               disabled={disabled || loading}
+              data-testid="input-test"
               icon="sign in"
               type="submit"
               style={{ background: "#245CA6", color: "white" }}
