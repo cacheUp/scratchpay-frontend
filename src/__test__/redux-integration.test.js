@@ -1,11 +1,11 @@
 import { storeFactory } from "./storeFactory";
-import { actionTypes } from "../actions";
+import { actionTypes, setErr, setTableErr } from "../actions";
 
 describe("useReducer dispatcher", () => {
   let initialState = {
     userReducer: { error: "", tableError: false, userFormErr: "" }
   };
-  describe("When user logs in", () => {
+  describe("when dispatching actions", () => {
     let store;
     let loggedInUser = {
       id: 1,
@@ -18,15 +18,36 @@ describe("useReducer dispatcher", () => {
     beforeEach(() => {
       store = storeFactory(initialState);
     });
-    test("logged in user object should populate", () => {
+    test("setUser should set the user that is passed", () => {
       store.dispatch({ type: actionTypes.SET_USER, payload: loggedInUser });
 
       const newState = store.getState();
-      console.log(newState);
       const expectedState = {
         userReducer: { ...initialState.userReducer, loggedInUser: loggedInUser }
       };
-      console.log(expectedState);
+      expect(newState).toEqual(expectedState);
+    });
+
+    test("setError should set the error state", () => {
+      store.dispatch(setErr("error dispatched"));
+
+      const newState = store.getState();
+      const expectedState = {
+        userReducer: { ...initialState.userReducer, error: "error dispatched" }
+      };
+      expect(newState).toEqual(expectedState);
+    });
+
+    test("Table Error should set the table error state", () => {
+      store.dispatch(setTableErr({ message: "error dispatched" }));
+
+      const newState = store.getState();
+      const expectedState = {
+        userReducer: {
+          ...initialState.userReducer,
+          tableError: "error dispatched"
+        }
+      };
       expect(newState).toEqual(expectedState);
     });
     //     test("updates state correctly for successful guess", () => {
