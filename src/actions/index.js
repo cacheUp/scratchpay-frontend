@@ -36,6 +36,7 @@ function catchErrors(error) {
 
 export const loginUser = d => async dispatch => {
   try {
+    console.log(process.env.REACT_APP_API_URL);
     const url = `${process.env.REACT_APP_API_URL}/api/v1/auth/login`;
     const { data } = await axios.post(url, d);
     localStorage.setItem("token", data.token);
