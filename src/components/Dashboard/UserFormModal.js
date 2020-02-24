@@ -48,9 +48,9 @@ function UserFormModal(props) {
       props.setUserFormErr("");
       setLoading(true);
       const url = `${process.env.REACT_APP_API_URL}/api/v1/user`;
-      await axios.post(url, input);
+      const { data } = await axios.post(url, input);
       //redux action to add user to allUsers array
-      props.addUser(input);
+      props.addUser(data[0]);
       setLoading(false);
       setModal(false);
       // set input back to empty
